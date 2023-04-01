@@ -57,7 +57,7 @@ private fun getMockList(): ArrayList<BaseModel>{
     )
 
     val genderOptions = arrayListOf<BaseModel>(
-        GenderOptionsModel("Male", "https://cdn-icons-png.flaticon.com/512/163/163801.png"),
+        GenderOptionsModel("Male", "https://cdn-icons-png.flaticon.com/512/4439/4439947.png"),
         GenderOptionsModel("Female", "https://cdn-icons-png.flaticon.com/512/921/921009.png")
     )
 

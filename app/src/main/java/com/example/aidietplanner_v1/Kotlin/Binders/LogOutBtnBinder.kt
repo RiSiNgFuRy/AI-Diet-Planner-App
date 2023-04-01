@@ -18,7 +18,7 @@ class LogOutBtnBinder(val activity: FragmentActivity, val adapter: GenericAdapte
     inner class LogOutBtnViewHolder(val binding: CardLayoutSignOutBtnBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(data: LogOutBtnModel){
             binding.apply {
-                signOutBtn.text = data.btnName
+                signOutBtnText.text = data.btnName
             }
             addSetOnClickListeners(binding)
         }

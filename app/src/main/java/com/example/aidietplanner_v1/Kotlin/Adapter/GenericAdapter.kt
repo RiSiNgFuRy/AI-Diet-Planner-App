@@ -37,5 +37,9 @@ open abstract class GenericAdapter(private val list: ArrayList<BaseModel>) :
     fun getData(position: Int): BaseModel{
         return list[position]
     }
+
+    fun dataChanged(position: Int){
+        notifyItemChanged(position)
+    }
 }
 

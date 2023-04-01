@@ -4,10 +4,11 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="5dp"
-    app:cardElevation="10dp"
+    app:cardElevation="5dp"
     android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/e3e3e3">
