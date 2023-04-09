@@ -14,19 +14,22 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.example.aidietplanner_v1.Java.Models.UserLoginModel;
+import com.example.aidietplanner_v1.Java.Models.UserLoginResponseModel;
 import com.example.aidietplanner_v1.Kotlin.Activities.HomeActivity;
+import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs;
 import com.example.aidietplanner_v1.R;
+import com.example.aidietplanner_v1.Services.RetrofitClient;
 import com.example.aidietplanner_v1.databinding.FragmentLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
     View view;
     private FragmentLoginBinding binding;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String email,pass;
 
     public LoginFragment() {
@@ -54,8 +57,10 @@ public class LoginFragment extends Fragment {
                 pass = binding.userPass.getText().toString();
                 if(email.isEmpty() || email.isEmpty())
                     Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-                else if(validateMail(String.valueOf(email)))
-                    validateUser();
+                else if(validateMail(String.valueOf(email))) {
+                    binding.signInBtn.setEnabled(false);
+                    validateUser(email, pass);
+                }
             }
         });
 
@@ -74,23 +79,40 @@ public class LoginFragment extends Fragment {
         return false;
     }
 
-    public void validateUser(){
-        firebaseAuth.signInWithEmailAndPassword(binding.userMail.getText().toString(),binding.userPass.getText().toString()).
-                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-                            getActivity().startActivity(intent);
-                            getActivity().finish();
-                            Toast.makeText(getContext(), "Successfully signed in", Toast.LENGTH_SHORT).show();
+    public void validateUser(String email, String password){
+        try {
+
+            RetrofitClient.INSTANCE.buildService()
+                    .verifyLoginCredentials(new UserLoginModel(email, password)).enqueue(new Callback<UserLoginResponseModel>() {
+                        @Override
+                        public void onResponse(Call<UserLoginResponseModel> call, Response<UserLoginResponseModel> response) {
+                            if(response.isSuccessful()){
+                                UserLoginResponseModel responseModel = response.body();
+
+                                new SharedPrefs(getActivity(), getString(R.string.shared_pref_key))
+                                        .setUserCredentials(
+                                                responseModel.getToken(),
+                                                responseModel.getUsername(),
+                                                responseModel.getUserId(),
+                                                responseModel.getEmail()
+                                        );
+
+                                startActivity(new Intent(getActivity(), HomeActivity.class));
+                                requireActivity().finish();
+                                Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getActivity(), getString(R.string.server_error_occurred), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(getContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onFailure(Call<UserLoginResponseModel> call, Throwable t) {
+                            Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), getString(R.string.not_able_to_connect_to_server), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void hideKeyboard() {

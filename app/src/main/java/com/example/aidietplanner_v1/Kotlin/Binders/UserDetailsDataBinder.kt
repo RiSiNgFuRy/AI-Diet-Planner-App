@@ -10,7 +10,7 @@ import com.example.aidietplanner_v1.databinding.CardLayoutSettingsUserDetailsBin
 
 class UserDetailsDataBinder(val activity: FragmentActivity, val adapter: GenericAdapter): DataBinder<UserDetailsDataBinder.UserDetailsViewHolder>() {
 
-    class UserDetailsViewHolder(val binding: CardLayoutSettingsUserDetailsBinding): RecyclerView.ViewHolder(binding.root){
+    inner class UserDetailsViewHolder(val binding: CardLayoutSettingsUserDetailsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: UserDetailsModel){
             binding.apply {
                 userName.text = data.userName

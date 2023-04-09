@@ -11,12 +11,10 @@ import android.view.ViewGroup;
 
 import com.example.aidietplanner_v1.Kotlin.Activities.HomeActivity;
 import com.example.aidietplanner_v1.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainFragment extends Fragment {
 
     View v;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public MainFragment() {
         // Required empty public constructor
@@ -26,11 +24,6 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(firebaseAuth.getCurrentUser()!=null){
-            Intent intent = new Intent(getActivity().getApplicationContext(), HomeActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
     }
 
     @Override

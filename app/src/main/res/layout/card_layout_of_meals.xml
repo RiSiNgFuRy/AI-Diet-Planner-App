@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/foodName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Food Name"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:padding="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/e3e3e3"
+        app:layout_constraintTop_toBottomOf="@id/foodName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/proteinTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Protein :"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/proteinValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10g"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toTopOf="@id/proteinTxt"
+        app:layout_constraintStart_toEndOf="@id/proteinTxt"
+        app:layout_constraintBottom_toBottomOf="@id/proteinTxt"/>
+
+    <TextView
+        android:id="@+id/carbsTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Carbohydrates :"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@id/proteinTxt"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/carbsValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="34g"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toTopOf="@id/carbsTxt"
+        app:layout_constraintStart_toEndOf="@id/carbsTxt"
+        app:layout_constraintBottom_toBottomOf="@id/carbsTxt"/>
+
+    <TextView
+        android:id="@+id/fatTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fat :"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@id/carbsTxt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/fatValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5g"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toTopOf="@id/fatTxt"
+        app:layout_constraintStart_toEndOf="@id/fatTxt"
+        app:layout_constraintBottom_toBottomOf="@id/fatTxt"/>
+
+    <TextView
+        android:id="@+id/caloriesTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories"
+        android:layout_margin="15dp"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/caloriesValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 kcal"
+        app:layout_constraintTop_toBottomOf="@id/caloriesTxt"
+        app:layout_constraintEnd_toEndOf="@id/caloriesTxt"
+        app:layout_constraintStart_toStartOf="@id/caloriesTxt"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

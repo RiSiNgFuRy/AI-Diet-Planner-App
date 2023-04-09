@@ -24,9 +24,9 @@ class SettingListFoodPrefBinder(val activity: FragmentActivity, private val adap
     inner class SettingListFoodPrefViewHolder(private val binding: CardLayoutFoodPrefOptionsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: FoodPreferencesOptionsModel, position: Int){
             binding.apply {
-                foodPrefTypeName.text = data.heading
-                ImageHelper.loadImage(activity, foodPrefTypeImg, data.img)
-                ImageHelper.loadImageFit(activity, foodPrefTypeLogo, data.logo)
+                foodPrefTypeName.text = data.type
+                ImageHelper.loadImage(activity, foodPrefTypeImg, data.mainImgUrl)
+                ImageHelper.loadImageFit(activity, foodPrefTypeLogo, data.logoImgUrl)
                 foodPrefTypeName.isMnb
                 if (selectedItem == position) {
                     itemCard.setBackgroundColor(activity.resources.getColor(R.color.primaryColor))

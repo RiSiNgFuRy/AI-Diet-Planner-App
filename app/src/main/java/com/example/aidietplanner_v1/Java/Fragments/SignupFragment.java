@@ -13,17 +13,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.example.aidietplanner_v1.Java.Models.UserRegistrationModel;
+import com.example.aidietplanner_v1.Java.Models.UserRegistrationResponseModel;
 import com.example.aidietplanner_v1.R;
+import com.example.aidietplanner_v1.Services.RetrofitClient;
 import com.example.aidietplanner_v1.databinding.FragmentSignupBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignupFragment extends Fragment {
     View v;
     private FragmentSignupBinding binding;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private String username,email,pass;
 
     public SignupFragment() {
@@ -50,9 +52,9 @@ public class SignupFragment extends Fragment {
                 pass = binding.userSuPass.getText().toString();
 
                 if(username.isEmpty() || email.isEmpty() || pass.isEmpty())
-                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No field should be empty", Toast.LENGTH_SHORT).show();
                 else if(validateMail(email) && validatePass(pass))
-                    registerUser(email,pass);
+                    registerUser(username, email, pass);
             }
         });
 
@@ -78,26 +80,33 @@ public class SignupFragment extends Fragment {
         });
     }
 
-    public void registerUser(String email, String pass){
-        firebaseAuth.createUserWithEmailAndPassword(email,pass).
-                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    public void registerUser(String username, String email, String pass){
+        try {
+            RetrofitClient.INSTANCE.buildService()
+                .registerUser(new UserRegistrationModel(username, email, pass)).enqueue(new Callback<UserRegistrationResponseModel>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                    public void onResponse(Call<UserRegistrationResponseModel> call, Response<UserRegistrationResponseModel> response) {
+                        if (response.isSuccessful()) {
                             Toast.makeText(getContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
-
                             Bundle b = new Bundle();
-                            b.putString("emailAddress",email);
+                            b.putString("emailAddress", email);
                             LoginFragment loginFragment = new LoginFragment();
                             loginFragment.setArguments(b);
-
-                            getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.main_frag_frame,new LoginFragment()).commit();
-                        }
-                        else{
-                            Toast.makeText(getContext(), "Registration Unsuccessful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Successfully Registered", Toast.LENGTH_SHORT).show();
+                            getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.main_frag_frame, new LoginFragment()).commit();
+                        }else {
+                            Toast.makeText(getActivity(), getString(R.string.server_error_occurred), Toast.LENGTH_SHORT).show();
                         }
                     }
+                    @Override
+                    public void onFailure(Call<UserRegistrationResponseModel> call, Throwable t) {
+                        Toast.makeText(getActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
                 });
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(), getString(R.string.not_able_to_connect_to_server), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean validateMail(String email){

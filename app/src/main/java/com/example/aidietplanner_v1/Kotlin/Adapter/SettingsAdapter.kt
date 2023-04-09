@@ -12,7 +12,8 @@ class SettingsAdapter(activity: FragmentActivity, list: ArrayList<BaseModel>): G
         addBinder(Constants.USER_BMI_DETAILS, BMIDetailBinder(activity, this))
         addBinder(Constants.USER_GENDER_SELECTION_LIST, UserGenderTypeBinder(activity, this))
         addBinder(Constants.USER_FOOD_PREFERENCES_LIST, UserFoodPreferencesBinder(activity, this))
-        addBinder(Constants.USER_ALLERGIES_SELECTION_LIST, UserAllergiesSelectionBinder(activity, this))
         addBinder(Constants.USER_SIGN_OUT_BTN, LogOutBtnBinder( activity, this))
+        addBinder(Constants.USER_GOAL_LIST, UserGoalSelectionBinder(this, activity))
+        addBinder(Constants.USER_AGE_PICKER, UserAgePickerBinder(this, activity))
     }
 }

@@ -17,8 +17,8 @@ class SettingListGenderSelectionBinder(val activity: FragmentActivity, val adapt
     inner class SettingListGenderSelectionViewHolder(val binding: CardLayoutGenderOptionsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: GenderOptionsModel){
             binding.apply {
-                genderName.text = data.genderTitle
-                ImageHelper.loadImage(activity, genderImg, data.imgUrl)
+                genderName.text = data.type
+                ImageHelper.loadImage(activity, genderImg, data.imgurl)
                 if (selectedItem == adapterPosition) {
                     genderImg.strokeWidth = 10F
                     genderImg.strokeColor = ColorStateList.valueOf(activity.resources.getColor(R.color.primaryColor))

@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aidietplanner_v1.Java.Activities.MainActivity
 import com.example.aidietplanner_v1.Kotlin.Adapter.GenericAdapter
 import com.example.aidietplanner_v1.Kotlin.Models.LogOutBtnModel
+import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs
+import com.example.aidietplanner_v1.R
 import com.example.aidietplanner_v1.databinding.CardLayoutSignOutBtnBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class LogOutBtnBinder(val activity: FragmentActivity, val adapter: GenericAdapter): DataBinder<LogOutBtnBinder.LogOutBtnViewHolder>() {
 
@@ -36,15 +37,16 @@ class LogOutBtnBinder(val activity: FragmentActivity, val adapter: GenericAdapte
 
     private fun addSetOnClickListeners(binding: CardLayoutSignOutBtnBinding){
         binding.apply {
-            signOutBtn.setOnClickListener {
-//                signOutUser(activity)
+            signOutBtnText.setOnClickListener {
+                signOutUser(activity)
             }
         }
     }
 
     private fun signOutUser(activity: FragmentActivity){
-        FirebaseAuth.getInstance().signOut()
-        val i = Intent(activity, MainActivity::class.java)
-        activity.startActivity(i)
+        SharedPrefs(activity, activity.getString(R.string.shared_pref_key))
+            .clearSharedPrefs()
+        activity.startActivity(Intent(activity, MainActivity::class.java))
+        activity.finish()
     }
 }
