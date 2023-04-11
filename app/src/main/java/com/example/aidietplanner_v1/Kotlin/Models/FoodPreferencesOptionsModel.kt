@@ -5,6 +5,8 @@ import com.example.aidietplanner_v1.Kotlin.Utils.Constants
 import com.google.gson.annotations.SerializedName
 
 class FoodPreferencesOptionsModel(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("type")
     val type: String="",
     @SerializedName("mainImgUrl")

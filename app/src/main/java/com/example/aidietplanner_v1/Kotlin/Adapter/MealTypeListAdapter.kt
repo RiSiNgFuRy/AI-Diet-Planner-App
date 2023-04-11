@@ -13,10 +13,10 @@ class MealTypeListAdapter(val activity: FragmentActivity, val data: ArrayList<Me
         fun bind(data: MealModel){
             binding.apply {
                 foodName.text = data.foodName
-                proteinValue.text = data.protein
-                carbsValue.text = data.carbohydrates
-                fatValue.text = data.fat
-                caloriesValue.text = data.calories
+                proteinValue.text = data.protein + " gm"
+                carbsValue.text = data.carbohydrates + " carbs"
+                fatValue.text = data.fat + "gm"
+                caloriesValue.text = data.calories + " kcal"
             }
         }
     }

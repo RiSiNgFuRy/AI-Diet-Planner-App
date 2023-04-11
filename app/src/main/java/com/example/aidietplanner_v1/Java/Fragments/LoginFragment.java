@@ -89,12 +89,19 @@ public class LoginFragment extends Fragment {
                             if(response.isSuccessful()){
                                 UserLoginResponseModel responseModel = response.body();
 
+                                assert responseModel != null;
                                 new SharedPrefs(getActivity(), getString(R.string.shared_pref_key))
                                         .setUserCredentials(
                                                 responseModel.getToken(),
                                                 responseModel.getUsername(),
                                                 responseModel.getUserId(),
-                                                responseModel.getEmail()
+                                                responseModel.getEmail(),
+                                                responseModel.getHeight(),
+                                                responseModel.getWeight(),
+                                                responseModel.getGenderId(),
+                                                responseModel.getAge(),
+                                                responseModel.getGoalId(),
+                                                responseModel.getFoodPreferenceId()
                                         );
 
                                 startActivity(new Intent(getActivity(), HomeActivity.class));

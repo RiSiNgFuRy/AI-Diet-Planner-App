@@ -30,7 +30,7 @@ interface RetrofitApiInterface {
     suspend fun setUserBmiDetails(
         @Path("userId") userId: String,
         @Body bmiDetailsRequestModel: BmiDetailsRequestModel
-    ): Response<SuccessStatusCommonModel>
+    ): Response<BMIDetailsModel>
 
     @POST("/user/{userId}/genderType")
     suspend fun setUserGenderType(
@@ -42,7 +42,7 @@ interface RetrofitApiInterface {
     suspend fun setUserAge(
         @Path("userId") userId: String,
         @Query("age") age: Int
-    ): Response<SuccessStatusCommonModel>
+    ): Response<UserAgeResponseModel>
 
     @POST("/user/{userId}/goalType")
     suspend fun setUserGoalType(

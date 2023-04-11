@@ -5,12 +5,29 @@ import android.content.Context
 class SharedPrefs(context: Context, key: String) {
     private val sharedPrefs = context.getSharedPreferences(key, Context.MODE_PRIVATE)
 
-    fun setUserCredentials(token: String, userName: String, userId: String, userEmail: String){
+    fun setUserCredentials(
+        token: String,
+        userName: String,
+        userId: String,
+        userEmail: String,
+        userHeight: String,
+        userWeight: String,
+        userGender: String,
+        userAge: String,
+        userGoal: String,
+        userFoodPreference: String
+    ){
         sharedPrefs.edit()
             .putString("token", token)
             .putString("userName", userName)
             .putString("userId", userId)
             .putString("userEmail", userEmail)
+            .putString("userHeight", userHeight)
+            .putString("userWeight", userWeight)
+            .putString("userGender", userGender)
+            .putString("userAge", userAge)
+            .putString("userGoal", userGoal)
+            .putString("userFoodPreference", userFoodPreference)
             .commit()
     }
 
@@ -23,6 +40,30 @@ class SharedPrefs(context: Context, key: String) {
     fun setUserFoodPreference(id: String?){
         sharedPrefs.edit()
             .putString("userFoodPreference", id)
+            .commit()
+    }
+
+    fun setUserHeight(height: String?) {
+        sharedPrefs.edit()
+            .putString("userHeight", height)
+            .commit()
+    }
+
+    fun setUserWeight(weight: String?) {
+        sharedPrefs.edit()
+            .putString("userWeight", weight)
+            .commit()
+    }
+
+    fun setUserAge(age: String?){
+        sharedPrefs.edit()
+            .putString("userAge", age)
+            .commit()
+    }
+
+    fun setUserGoal(goalId: String){
+        sharedPrefs.edit()
+            .putString("userGoal", goalId)
             .commit()
     }
 
@@ -48,6 +89,21 @@ class SharedPrefs(context: Context, key: String) {
 
     fun getUserFoodPreference(): String? {
         return sharedPrefs.getString("userFoodPreference", null)
+    }
+
+    fun getGoal(): String? {
+        return sharedPrefs.getString("userGoal", null)
+    }
+    fun getUserHeight(): String? {
+        return sharedPrefs.getString("userHeight", null) ?: "0"
+    }
+
+    fun getUserWeight(): String? {
+        return sharedPrefs.getString("userWeight", null) ?: "0"
+    }
+
+    fun getUserAge(): String?{
+        return sharedPrefs.getString("userAge", null)
     }
 
     fun clearSharedPrefs() {

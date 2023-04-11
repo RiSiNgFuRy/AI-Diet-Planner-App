@@ -2,6 +2,7 @@ package com.example.aidietplanner_v1.Kotlin.Adapter
 
 import androidx.fragment.app.FragmentActivity
 import com.example.aidietplanner_v1.Kotlin.Binders.MealsListBinder
+import com.example.aidietplanner_v1.Kotlin.Models.MealsListModel
 import com.example.aidietplanner_v1.Kotlin.Utils.BaseModel
 import com.example.aidietplanner_v1.Kotlin.Utils.Constants
 

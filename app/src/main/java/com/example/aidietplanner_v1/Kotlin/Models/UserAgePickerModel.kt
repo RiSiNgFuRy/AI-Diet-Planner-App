@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName
 
 class UserAgePickerModel(
     var heading: String,
-    @SerializedName("age")
-    var age: Number
 ):BaseModel() {
     override fun getModel(): Int {
         return Constants.USER_AGE_PICKER

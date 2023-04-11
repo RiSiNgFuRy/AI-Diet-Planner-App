@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.aidietplanner_v1.Kotlin.Models.*
 import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs
 import com.example.aidietplanner_v1.Services.RetrofitClient
@@ -24,14 +25,14 @@ class SettingsViewModel: ViewModel() {
     private val _goalOptions = MutableLiveData<Response<ArrayList<GoalOptionsModel>>>()
     val goalOptions: LiveData<Response<ArrayList<GoalOptionsModel>>> = _goalOptions
 
-    private val _setBmiDetails = MutableLiveData<Response<SuccessStatusCommonModel>>()
-    val setBmiDetails: LiveData<Response<SuccessStatusCommonModel>> = _setBmiDetails
+    private val _setBmiDetails = MutableLiveData<Response<BMIDetailsModel>>()
+    val setBmiDetails: LiveData<Response<BMIDetailsModel>> = _setBmiDetails
 
     private val _setUserGender = MutableLiveData<Response<SuccessStatusCommonModel>>()
     val setUserGender: LiveData<Response<SuccessStatusCommonModel>> = _setUserGender
 
-    private val _setUserAge = MutableLiveData<Response<SuccessStatusCommonModel>>()
-    val setUserAge: LiveData<Response<SuccessStatusCommonModel>> = _setUserAge
+    private val _setUserAge = MutableLiveData<Response<UserAgeResponseModel>>()
+    val setUserAge: LiveData<Response<UserAgeResponseModel>> = _setUserAge
 
     private val _setUserGoal = MutableLiveData<Response<SuccessStatusCommonModel>>()
     val setUserGoal: LiveData<Response<SuccessStatusCommonModel>> = _setUserGoal

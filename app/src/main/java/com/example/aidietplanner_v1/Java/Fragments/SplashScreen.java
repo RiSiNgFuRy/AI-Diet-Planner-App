@@ -60,6 +60,11 @@ public class SplashScreen extends Fragment {
                                     getActivity().finish();
                                     Toast.makeText(getActivity(), "Token Verified", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    getActivity()
+                                            .getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.main_frame, new MainFragment())
+                                            .commit();
                                     Toast.makeText(getActivity(), "Token not valid or expired", Toast.LENGTH_SHORT).show();
                                 }
                             }

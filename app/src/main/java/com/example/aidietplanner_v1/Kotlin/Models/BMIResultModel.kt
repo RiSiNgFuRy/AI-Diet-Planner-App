@@ -3,8 +3,8 @@ package com.example.aidietplanner_v1.Kotlin.Models
 import com.example.aidietplanner_v1.Kotlin.Utils.BaseModel
 import com.example.aidietplanner_v1.Kotlin.Utils.Constants
 
-class MealsListModel(val mealType: String="", val listOfMeals: ArrayList<MealModel> = arrayListOf()):BaseModel() {
+class BMIResultModel(val bmiValue: String, val bmiResultTxt: String): BaseModel() {
     override fun getModel(): Int {
-        return Constants.TYPES_OF_MEALS
+        return Constants.USER_BMI_RESULTS
     }
 }

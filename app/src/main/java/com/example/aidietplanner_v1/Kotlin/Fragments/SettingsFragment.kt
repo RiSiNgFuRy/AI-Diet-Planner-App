@@ -14,6 +14,7 @@ import com.example.aidietplanner_v1.Kotlin.Adapter.GoalOptionsAdapter
 import com.example.aidietplanner_v1.Kotlin.Adapter.SettingsAdapter
 import com.example.aidietplanner_v1.Kotlin.Models.*
 import com.example.aidietplanner_v1.Kotlin.Utils.BaseModel
+import com.example.aidietplanner_v1.Kotlin.Utils.Constants
 import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs
 import com.example.aidietplanner_v1.Kotlin.ViewModel.SettingsViewModel
 import com.example.aidietplanner_v1.R
@@ -42,12 +43,76 @@ class SettingsFragment : Fragment() {
 
         getSettingOptions()
 
+        addObservers()
+
         binding.settingsList.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = SettingsAdapter(requireActivity(), getList())
         }
 
         return binding.root
+    }
+
+    private fun addObservers(){
+        settingsViewModel.setBmiDetails.observe(requireActivity()){response ->
+            if(response.isSuccessful){
+                sharedPrefs.apply {
+                    setUserHeight(response.body()?.height.toString())
+                    setUserWeight(response.body()?.weight.toString())
+                }
+                binding.settingsList.adapter?.notifyItemChanged(Constants.USER_BMI_DETAILS)
+                Toast.makeText(requireActivity(), "BMIDetails updated", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        settingsViewModel.setUserGender.observe(requireActivity()){response ->
+            if(response.isSuccessful){
+                sharedPrefs.apply {
+                    setUserGender(response.body()?.id)
+                }
+                binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GENDER_SELECTION_LIST)
+                Toast.makeText(activity, "User gender updated", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        settingsViewModel.setUserAge.observe(requireActivity()){response ->
+            if(response.isSuccessful){
+                sharedPrefs.apply {
+                    setUserAge(response.body()?.age.toString())
+                }
+                Toast.makeText(activity, "User age updated", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        settingsViewModel.setUserGoal.observe(requireActivity()){response ->
+            if(response.isSuccessful){
+                sharedPrefs.apply {
+                    setUserGoal(response.body()?.id!!)
+                }
+                binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GOAL_LIST)
+                Toast.makeText(activity, "User goal updated", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        settingsViewModel.setUserFoodPreference.observe(requireActivity()){response ->
+            if(response.isSuccessful){
+                sharedPrefs.apply {
+                    setUserFoodPreference(response.body()?.id!!)
+                }
+                binding.settingsList.adapter?.notifyItemChanged(Constants.USER_FOOD_PREFERENCES_LIST)
+                Toast.makeText(activity, "User food preference updated", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getSettingOptions(){
@@ -90,9 +155,9 @@ class SettingsFragment : Fragment() {
 
         return arrayListOf(
             UserDetailsModel( sharedPrefs.getUserName() ?: "UserName", sharedPrefs.getUserEmail() ?: "xxxgmail.com"),
-            BMIDetailsModel("182cm", "80kg"),
+            BMIDetailsModel(sharedPrefs.getUserHeight() ?: "0", sharedPrefs.getUserWeight() ?: "0"),
             UserGenderSelectionModel("Gender", genderOptions),
-            UserAgePickerModel("Age", 24),
+            UserAgePickerModel("Age"),
             UserGoalSelectionModel("Goal", goalOptions),
             UserFoodPreferencesModel("Food Preferences", foodOptions),
             LogOutBtnModel()
