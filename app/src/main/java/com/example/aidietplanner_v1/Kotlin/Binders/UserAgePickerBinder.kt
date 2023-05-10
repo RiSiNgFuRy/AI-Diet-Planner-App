@@ -38,7 +38,7 @@ class UserAgePickerBinder(val adapter: GenericAdapter,val activity: FragmentActi
                     }
 
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                        settingsViewModel.setUserAge(sharedPrefs.getUserId(), Integer.parseInt(ageValue.text.toString()))
+                        settingsViewModel.setUserAge(sharedPrefs.getUserId()!!, Integer.parseInt(ageValue.text.toString()))
                     }
 
                 })

@@ -15,4 +15,55 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/messageBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/messageBoxText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "@string/settings_complete_message"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"/>
+
+            <TextView
+                android:id="@+id/messageBoxBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Generate Diet Plan"
+                android:foreground="?attr/selectableItemBackground"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:background="@drawable/green_curved_corner_card"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

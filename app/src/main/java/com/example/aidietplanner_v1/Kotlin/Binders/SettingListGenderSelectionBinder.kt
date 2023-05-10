@@ -37,7 +37,7 @@ class SettingListGenderSelectionBinder(val activity: FragmentActivity, val adapt
                 }
                 itemCard.setOnClickListener {
                     if(sharedPrefs.getUserGender() != data.id)
-                         settingsViewModel.setUserGender(sharedPrefs.getUserId(), data.id)
+                         settingsViewModel.setUserGender(sharedPrefs.getUserId()!!, data.id)
                 }
             }
         }

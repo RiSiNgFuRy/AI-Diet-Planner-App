@@ -38,7 +38,7 @@ class SettingListFoodPrefBinder(val activity: FragmentActivity, private val adap
             }
             binding.itemCard.setOnClickListener {
                 if(sharedPrefs.getUserFoodPreference() != data.id)
-                    settingsViewModel.setUserFoodPreference(sharedPrefs.getUserId(), data.id)
+                    settingsViewModel.setUserFoodPreference(sharedPrefs.getUserId()!!, data.id)
             }
         }
     }

@@ -77,10 +77,10 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-    fun setBmiDetails(userId: String?, bmiDetailsRequestModel: BmiDetailsRequestModel?){
+    fun setBmiDetails(userId: String, bmiDetailsRequestModel: BmiDetailsRequestModel){
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val request = async { RetrofitClient.buildService().setUserBmiDetails(userId!!, bmiDetailsRequestModel!!) }
+                val request = async { RetrofitClient.buildService().setUserBmiDetails(userId, bmiDetailsRequestModel) }
                 val response = request.await()
                 _setBmiDetails.postValue(response)
             }
@@ -89,10 +89,10 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-    fun setUserGender(userId: String?, genderId: String?){
+    fun setUserGender(userId: String, genderId: String){
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val request = async { RetrofitClient.buildService().setUserGenderType(userId!!, genderId!!) }
+                val request = async { RetrofitClient.buildService().setUserGenderType(userId, genderId) }
                 val response = request.await()
                 _setUserGender.postValue(response)
             }
@@ -101,10 +101,10 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-    fun setUserAge(userId: String?, age: Int?){
+    fun setUserAge(userId: String, age: Int){
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val request = async { RetrofitClient.buildService().setUserAge(userId!!, age!!) }
+                val request = async { RetrofitClient.buildService().setUserAge(userId, age) }
                 val response = request.await()
                 _setUserAge.postValue(response)
             }
@@ -113,10 +113,10 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-    fun setUserGoal(userId: String?, goalId: String?){
+    fun setUserGoal(userId: String, goalId: String){
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val request = async { RetrofitClient.buildService().setUserGoalType(userId!!, goalId!!) }
+                val request = async { RetrofitClient.buildService().setUserGoalType(userId, goalId) }
                 val response = request.await()
                 _setUserGoal.postValue(response)
             }
@@ -125,10 +125,10 @@ class SettingsViewModel: ViewModel() {
         }
     }
 
-    fun setUserFoodPreference(userId: String?, foodPreferenceId: String?){
+    fun setUserFoodPreference(userId: String, foodPreferenceId: String){
         try {
             CoroutineScope(Dispatchers.IO).launch {
-                val request = async { RetrofitClient.buildService().setUserFoodPreferenceType(userId!!, foodPreferenceId!!) }
+                val request = async { RetrofitClient.buildService().setUserFoodPreferenceType(userId, foodPreferenceId) }
                 val response = request.await()
                 _setUserFoodPreference.postValue(response)
             }

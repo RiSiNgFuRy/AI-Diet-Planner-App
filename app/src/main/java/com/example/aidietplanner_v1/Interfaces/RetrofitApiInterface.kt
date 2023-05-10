@@ -56,4 +56,9 @@ interface RetrofitApiInterface {
         @Query("foodPreferenceId") foodPreferenceId: String
     ): Response<SuccessStatusCommonModel>
 
+    @GET("/user/{userId}/dietChart")
+    suspend fun getUserDietChart(
+        @Path("userId") userId: String,
+    ): Response<DietChartModel>
+
 }

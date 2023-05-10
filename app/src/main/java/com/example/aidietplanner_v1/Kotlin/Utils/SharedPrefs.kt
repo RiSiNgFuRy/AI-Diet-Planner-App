@@ -95,15 +95,33 @@ class SharedPrefs(context: Context, key: String) {
         return sharedPrefs.getString("userGoal", null)
     }
     fun getUserHeight(): String? {
-        return sharedPrefs.getString("userHeight", null) ?: "0"
+        return sharedPrefs.getString("userHeight", null)
     }
 
     fun getUserWeight(): String? {
-        return sharedPrefs.getString("userWeight", null) ?: "0"
+        return sharedPrefs.getString("userWeight", null)
     }
 
-    fun getUserAge(): String?{
+    fun getUserAge(): String? {
         return sharedPrefs.getString("userAge", null)
+    }
+
+    fun getRequiredAiSettings(): Boolean? {
+         return with(sharedPrefs) {
+             val checkValues =
+                 getUserHeight()?.let {
+                     getUserWeight()?.let {
+                         getUserAge()?.let {
+                             getGoal()?.let {
+                                 getUserFoodPreference()?.let {
+                                     true
+                                 }
+                             }
+                         }
+                     }
+                 }
+             checkValues
+         }
     }
 
     fun clearSharedPrefs() {

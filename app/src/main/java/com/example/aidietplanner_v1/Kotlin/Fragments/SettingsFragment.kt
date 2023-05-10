@@ -73,9 +73,9 @@ class SettingsFragment : Fragment() {
                     setUserGender(response.body()?.id)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GENDER_SELECTION_LIST)
-                Toast.makeText(activity, "User gender updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "User gender updated", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -84,9 +84,9 @@ class SettingsFragment : Fragment() {
                 sharedPrefs.apply {
                     setUserAge(response.body()?.age.toString())
                 }
-                Toast.makeText(activity, "User age updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "User age updated", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -96,9 +96,9 @@ class SettingsFragment : Fragment() {
                     setUserGoal(response.body()?.id!!)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GOAL_LIST)
-                Toast.makeText(activity, "User goal updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "User goal updated", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -108,9 +108,9 @@ class SettingsFragment : Fragment() {
                     setUserFoodPreference(response.body()?.id!!)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_FOOD_PREFERENCES_LIST)
-                Toast.makeText(activity, "User food preference updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "User food preference updated", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -125,7 +125,7 @@ class SettingsFragment : Fragment() {
 
     private fun getList(): ArrayList<BaseModel>{
         var foodOptions = arrayListOf<BaseModel>()
-        settingsViewModel.foodPreferenceOptions.observe(requireActivity()) {response ->
+        settingsViewModel.foodPreferenceOptions.observe(requireActivity()) { response ->
             if (response.isSuccessful) {
                 foodOptions.clear()
                 foodOptions.addAll(response.body()?.data as ArrayList<BaseModel>)

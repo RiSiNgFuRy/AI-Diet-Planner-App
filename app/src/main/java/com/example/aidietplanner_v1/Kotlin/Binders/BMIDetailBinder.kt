@@ -20,6 +20,7 @@ import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs
 import com.example.aidietplanner_v1.Kotlin.ViewModel.SettingsViewModel
 import com.example.aidietplanner_v1.R
 import com.example.aidietplanner_v1.databinding.CardLayoutBmiDetailsBinding
+import okhttp3.internal.userAgent
 
 class BMIDetailBinder(val activity: FragmentActivity, private val adapter: GenericAdapter): DataBinder<BMIDetailBinder.BMIDetailViewHolder>() {
 
@@ -28,8 +29,8 @@ class BMIDetailBinder(val activity: FragmentActivity, private val adapter: Gener
     inner class BMIDetailViewHolder(private val binding: CardLayoutBmiDetailsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: BMIDetailsModel){
             binding.apply {
-                userHeight.text = sharedPrefs.getUserHeight() + "cm"
-                userWeight.text = sharedPrefs.getUserWeight() + "kg"
+                userHeight.text = (sharedPrefs.getUserHeight() ?: "0") + "cm"
+                userWeight.text = (sharedPrefs.getUserWeight() ?: "0") + "kg"
                 itemView.setOnClickListener {
                     showBmiInputDialogBox(BMIDetailsModel(sharedPrefs.getUserHeight().toString(), sharedPrefs.getUserWeight().toString()))
                 }
@@ -99,7 +100,7 @@ class BMIDetailBinder(val activity: FragmentActivity, private val adapter: Gener
 
         doneBtn.setOnClickListener {
             settingsViewModel.setBmiDetails(
-                sharedPrefs.getUserId(),
+                sharedPrefs.getUserId()!!,
                 BmiDetailsRequestModel(
                     Integer.parseInt(heightValue.text as String),
                     Integer.parseInt(weightValue.text as String)

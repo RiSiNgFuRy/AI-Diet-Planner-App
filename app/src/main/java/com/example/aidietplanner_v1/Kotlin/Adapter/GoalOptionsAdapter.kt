@@ -33,7 +33,7 @@ class GoalOptionsAdapter(val activity: FragmentActivity,val data: ArrayList<Goal
             }
             binding.goalType.setOnClickListener {
                 if(sharedPrefs.getGoal() != data.id)
-                    settingsViewModel.setUserGoal(sharedPrefs.getUserId(), data.id)
+                    settingsViewModel.setUserGoal(sharedPrefs.getUserId()!!, data.id)
             }
         }
     }
