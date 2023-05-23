@@ -10,12 +10,12 @@ class SharedPrefs(context: Context, key: String) {
         userName: String,
         userId: String,
         userEmail: String,
-        userHeight: String,
-        userWeight: String,
-        userGender: String,
-        userAge: String,
-        userGoal: String,
-        userFoodPreference: String
+        userHeight: String?,
+        userWeight: String?,
+        userGender: String?,
+        userAge: String?,
+        userGoal: String?,
+        userFoodPreference: String?
     ){
         sharedPrefs.edit()
             .putString("token", token)
@@ -37,13 +37,19 @@ class SharedPrefs(context: Context, key: String) {
             .commit()
     }
 
+    fun setUserGenderValue(value: String) {
+        sharedPrefs.edit()
+            .putString("userGenderValue", value)
+            .commit()
+    }
+
     fun setUserFoodPreference(id: String?){
         sharedPrefs.edit()
             .putString("userFoodPreference", id)
             .commit()
     }
 
-    fun setUserHeight(height: String?) {
+    fun setUserHeight(height: String) {
         sharedPrefs.edit()
             .putString("userHeight", height)
             .commit()
@@ -61,9 +67,15 @@ class SharedPrefs(context: Context, key: String) {
             .commit()
     }
 
-    fun setUserGoal(goalId: String){
+    fun setUserGoal(goalId: String?){
         sharedPrefs.edit()
             .putString("userGoal", goalId)
+            .commit()
+    }
+
+    fun setHasAlreadyFetchedDietChart(bool: Boolean) {
+        sharedPrefs.edit()
+            .putBoolean("alreadyFetched", bool)
             .commit()
     }
 
@@ -85,6 +97,10 @@ class SharedPrefs(context: Context, key: String) {
 
     fun getUserGender(): String? {
         return sharedPrefs.getString("userGender", null)
+    }
+
+    fun getUserGenderValue(): String? {
+        return sharedPrefs.getString("userGenderValue", null)
     }
 
     fun getUserFoodPreference(): String? {
@@ -122,6 +138,10 @@ class SharedPrefs(context: Context, key: String) {
                  }
              checkValues
          }
+    }
+
+    fun getAlreadyFetchedDietChart(): Boolean {
+        return sharedPrefs.getBoolean("alreadyFetched", false)
     }
 
     fun clearSharedPrefs() {

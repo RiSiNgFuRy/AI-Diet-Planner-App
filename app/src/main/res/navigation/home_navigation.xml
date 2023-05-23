@@ -11,11 +11,11 @@
         android:label="@string/title_diet_chart"
         tools:layout="@layout/fragment_diet_chart" />
 
-    <fragment
-        android:id="@+id/navigation_progress"
-        android:name="com.example.aidietplanner_v1.Kotlin.Fragments.ProgressFragment"
-        android:label="@string/title_progress"
-        tools:layout="@layout/fragment_progress" />
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_progress"-->
+<!--        android:name="com.example.aidietplanner_v1.Kotlin.Fragments.ProgressFragment"-->
+<!--        android:label="@string/title_progress"-->
+<!--        tools:layout="@layout/fragment_progress" />-->
 
     <fragment
         android:id="@+id/navigation_settings"

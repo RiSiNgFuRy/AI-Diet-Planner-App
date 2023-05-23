@@ -61,9 +61,9 @@ class SettingsFragment : Fragment() {
                     setUserWeight(response.body()?.weight.toString())
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_BMI_DETAILS)
-                Toast.makeText(requireActivity(), "BMIDetails updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity().applicationContext, "BMIDetails updated", Toast.LENGTH_SHORT).show()
             }else{
-                Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity().applicationContext, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aidietplanner_v1.Kotlin.Adapter.GenericAdapter
 import com.example.aidietplanner_v1.Kotlin.Models.BMIResultModel
+import com.example.aidietplanner_v1.R
 import com.example.aidietplanner_v1.databinding.CardLayoutBmiResultBinding
 
 class BMIResultBinder(val adapter: GenericAdapter, val activity: FragmentActivity): DataBinder<BMIResultBinder.BMIResultViewHolder>() {
@@ -13,8 +14,21 @@ class BMIResultBinder(val adapter: GenericAdapter, val activity: FragmentActivit
     inner class BMIResultViewHolder(val binding: CardLayoutBmiResultBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: BMIResultModel){
             binding.apply {
-                bmiValue.text = data.bmiValue
-                bmiResult.text = data.bmiResultTxt
+                data.let {
+                    heightValue.text = it.height.plus(activity.getString(R.string.height_unit))
+                    weightValue.text = it.weight.plus(activity.getString(R.string.weight_unit))
+                    bmiResultImg.setImageResource(it.imgDrawableId)
+                    bmiValueCard.apply {
+                        heading.text = "BMI"
+                        headingValue.text = it.bmiValue
+                        headingUnit.text = activity.getString(R.string.bmi_unit)
+                    }
+                    bmrValueCard.apply {
+                        heading.text = "BMR"
+                        headingValue.text = it.bmrValue
+                        headingUnit.text = activity.getString(R.string.bmr_unit)
+                    }
+                }
             }
         }
     }

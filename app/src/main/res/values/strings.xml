@@ -13,6 +13,10 @@
     <string name="healthy">Healthy</string>
     <string name="over_weight">Overweight</string>
     <string name="obesity">Obesity</string>
+    <string name="height_unit">cm</string>
+    <string name="weight_unit">kg</string>
+    <string name="bmi_unit">kg/m\u00B2</string>
+    <string name="bmr_unit">kcal/day</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

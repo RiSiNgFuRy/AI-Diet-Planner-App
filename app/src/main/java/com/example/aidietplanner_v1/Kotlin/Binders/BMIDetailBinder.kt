@@ -29,10 +29,10 @@ class BMIDetailBinder(val activity: FragmentActivity, private val adapter: Gener
     inner class BMIDetailViewHolder(private val binding: CardLayoutBmiDetailsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: BMIDetailsModel){
             binding.apply {
-                userHeight.text = (sharedPrefs.getUserHeight() ?: "0") + "cm"
-                userWeight.text = (sharedPrefs.getUserWeight() ?: "0") + "kg"
+                userHeight.text = (sharedPrefs.getUserHeight() ?: "0").plus(activity.getString(R.string.height_unit))
+                userWeight.text = (sharedPrefs.getUserWeight() ?: "0").plus(activity.getString(R.string.weight_unit))
                 itemView.setOnClickListener {
-                    showBmiInputDialogBox(BMIDetailsModel(sharedPrefs.getUserHeight().toString(), sharedPrefs.getUserWeight().toString()))
+                    showBmiInputDialogBox(BMIDetailsModel(sharedPrefs.getUserHeight() ?: "0", sharedPrefs.getUserWeight() ?: "0"))
                 }
             }
         }

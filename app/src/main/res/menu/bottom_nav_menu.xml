@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_diet"
         android:title="@string/title_diet_chart" />
 
-    <item
-        android:id="@+id/navigation_progress"
-        android:icon="@drawable/ic_progress"
-        android:title="@string/title_progress" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_progress"-->
+<!--        android:icon="@drawable/ic_progress"-->
+<!--        android:title="@string/title_progress" />-->
 
     <item
         android:id="@+id/navigation_settings"
