@@ -16,7 +16,7 @@ object Constants {
     val USER_AGE_PICKER = 3
 
     //DietChartEvents Fragment
-    val USER_BMI_RESULTS = 1
-    val USER_DIET_CHART = 2
-    val TYPES_OF_MEALS = 3
+    val USER_BMI_RESULTS = 0
+    val USER_DIET_CHART = 1
+    val TYPES_OF_MEALS = 2
 }

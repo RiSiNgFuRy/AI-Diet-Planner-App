@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aidietplanner_v1.Java.Activities.MainActivity
+import com.example.aidietplanner_v1.Kotlin.Activities.HomeActivity
 import com.example.aidietplanner_v1.Kotlin.Adapter.GoalOptionsAdapter
 import com.example.aidietplanner_v1.Kotlin.Adapter.SettingsAdapter
 import com.example.aidietplanner_v1.Kotlin.Models.*
@@ -61,7 +62,7 @@ class SettingsFragment : Fragment() {
                     setUserWeight(response.body()?.weight.toString())
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_BMI_DETAILS)
-                Toast.makeText(requireActivity().applicationContext, "BMIDetails updated", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "BMIDetails updated", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(requireActivity().applicationContext, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
@@ -73,7 +74,7 @@ class SettingsFragment : Fragment() {
                     setUserGender(response.body()?.id)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GENDER_SELECTION_LIST)
-                Toast.makeText(requireActivity(), "User gender updated", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "User gender updated", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
@@ -84,7 +85,7 @@ class SettingsFragment : Fragment() {
                 sharedPrefs.apply {
                     setUserAge(response.body()?.age.toString())
                 }
-                Toast.makeText(requireActivity(), "User age updated", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "User age updated", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
@@ -96,7 +97,7 @@ class SettingsFragment : Fragment() {
                     setUserGoal(response.body()?.id!!)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_GOAL_LIST)
-                Toast.makeText(requireActivity(), "User goal updated", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "User goal updated", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }
@@ -108,7 +109,7 @@ class SettingsFragment : Fragment() {
                     setUserFoodPreference(response.body()?.id!!)
                 }
                 binding.settingsList.adapter?.notifyItemChanged(Constants.USER_FOOD_PREFERENCES_LIST)
-                Toast.makeText(requireActivity(), "User food preference updated", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(activity, "User food preference updated", Toast.LENGTH_SHORT).show()
             }else{
                 Toast.makeText(requireActivity(), getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
             }

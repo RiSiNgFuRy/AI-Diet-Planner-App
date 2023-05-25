@@ -15,6 +15,7 @@ import com.example.aidietplanner_v1.Kotlin.Models.DietChartModel
 import com.example.aidietplanner_v1.Kotlin.Models.MealModel
 import com.example.aidietplanner_v1.Kotlin.Models.MealsListModel
 import com.example.aidietplanner_v1.Kotlin.Utils.BaseModel
+import com.example.aidietplanner_v1.Kotlin.Utils.Constants
 import com.example.aidietplanner_v1.Kotlin.Utils.SharedPrefs
 import com.example.aidietplanner_v1.Kotlin.ViewModel.DietChartViewModel
 import com.example.aidietplanner_v1.R
@@ -39,10 +40,9 @@ class DietChartFragment : Fragment() {
         dietChartViewModel = ViewModelProvider(requireActivity()).get(DietChartViewModel::class.java)
         sharedPrefs = SharedPrefs(requireActivity(), getString(R.string.shared_pref_key))
 
-        var testVar = 0
-        if(!sharedPrefs.getAlreadyFetchedDietChart()) {
+//        if(!sharedPrefs.getAlreadyFetchedDietChart()) {
             fetchUserDietChart()
-        }
+//        }
         addObservers()
 
         binding.apply {
@@ -62,7 +62,7 @@ class DietChartFragment : Fragment() {
     private fun fetchUserDietChart() {
          with(sharedPrefs) {
             getRequiredAiSettings()?.let {
-                dietChartViewModel.getUserDietChart(getUserId()!!)
+                dietChartViewModel.getUserExistingDietChart(getUserId()!!)
                 binding.progressBar.visibility = View.VISIBLE
             } ?: Toast.makeText(activity, getString(R.string.settings_incomplete_message), Toast.LENGTH_SHORT).show()
         }
@@ -72,55 +72,31 @@ class DietChartFragment : Fragment() {
         dietChartViewModel.userDietChart.observe(requireActivity()) { response ->
             var listOfMeals = arrayListOf<BaseModel>()
             if (response.isSuccessful && response.body() != null){
-                data.clear()
-//                data.add(DietChartModel("Diet Chart", arrayListOf<BaseModel>()))
-                binding.apply {
-                    messageBox.visibility = View.GONE
-                    dietChartFragList.adapter?.notifyDataSetChanged()
-                }
-                sharedPrefs.setHasAlreadyFetchedDietChart(true)
-            }else if (response.body() == null) {
-                binding.apply {
-//                    dietChartFragList.visibility = View.GONE
-//                    messageBox.visibility = View.VISIBLE
-                    messageBox.visibility = View.GONE
-                }
+                val responseData = response.body()
                 data.clear()
                 getBmiResult()?.let { data.add(it) }
-                var breakfastList = arrayListOf<MealModel>(
-                    MealModel("Avocados", "2","8.5","15","160"),
-                    MealModel("Bananas", "0.3","23","0.3","89"),
-                    MealModel("Berries", "14","77","0.4","349"),
-                    MealModel("American cheese", "20", "8.3", "24", "331"),
-                    MealModel("Coffee", "0.3", "0.2","0", "2"),
-                    MealModel("Corn", "3.3", "22", "1.4", "97"),
-                    MealModel("Milk", "3.8", "5.2", "6.9", "97"),
-                    MealModel("Grapes", "5.6", "17","2.1", "93")
-                )
-
-                var lunchList = arrayListOf<MealModel>(
-                    MealModel("Asparagus Cooked", "2.4", "4.1", "0.2", "22"),
-                    MealModel("Macroni n Cheese", "20", "8.3", "24", "331"),
-                    MealModel("Turkey cooked", "0.3", "0.2","0", "2"),
-                    MealModel("Bagels made in wheat", "3.3", "22", "1.4", "97"),
-                    MealModel("French Fries", "3.8", "5.2", "6.9", "97")
-                )
-
-                var dinnerList = arrayListOf<MealModel>(
-                    MealModel("Marshmallows", "2","8.5","15","160"),
-                    MealModel("Rice Pudding", "0.3","23","0.3","89"),
-                    MealModel("Pop Corn - Caramel", "14","77","0.4","349")
-                )
-
-                listOfMeals = arrayListOf<BaseModel>(
-                    MealsListModel("Breakfast", getRandomList(breakfastList, (2..breakfastList.size).random())),
-                    MealsListModel("Lunch", getRandomList(lunchList, (2..lunchList.size).random())),
-                    MealsListModel("Dinner", getRandomList(dinnerList, (2..dinnerList.size).random()))
-                )
-                data.add(DietChartModel("Diet Chart", listOfMeals))
-                binding.dietChartFragList.adapter?.notifyDataSetChanged()
+                responseData?.run {
+                    if(breakfast!=null)
+                        listOfMeals.add(MealsListModel("Breakfast", breakfast))
+                    if(lunch!=null)
+                        listOfMeals.add(MealsListModel("Lunch", lunch))
+                    if(dinner!=null)
+                        listOfMeals.add(MealsListModel("Dinner", dinner))
+                }
+                data.add( DietChartModel("Diet Chart", listOfMeals) )
+                binding.apply {
+                    messageBox.visibility = View.GONE
+                    dietChartFragList.adapter?.notifyItemChanged(Constants.USER_DIET_CHART)
+                }
+//                sharedPrefs.setHasAlreadyFetchedDietChart(true)
+            }else if (response.body() == null) {
+                binding.apply {
+                    dietChartFragList.visibility = View.GONE
+                    messageBox.visibility = View.VISIBLE
+                    messageBox.visibility = View.GONE
+                }
             }else {
-                Toast.makeText(activity, "Some error occurred2", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Some error occurred", Toast.LENGTH_SHORT).show()
             }
             binding.progressBar.visibility = View.GONE
         }

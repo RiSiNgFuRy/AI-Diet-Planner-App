@@ -30,7 +30,7 @@ class DietChartBinder(val adapter: GenericAdapter, val activity: FragmentActivit
                     adapter = MealsListAdapter(activity, data.listOfMeals)
                 }
                 reloadBtn.setOnClickListener {
-                    dietChartViewModel.getUserDietChart(
+                    dietChartViewModel.getUserNewDietChart(
                         SharedPrefs(activity, activity.getString(R.string.shared_pref_key)).getUserId()!!
                     )
                 }
